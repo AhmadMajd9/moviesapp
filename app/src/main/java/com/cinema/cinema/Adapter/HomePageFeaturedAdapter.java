@@ -59,7 +59,7 @@ public class HomePageFeaturedAdapter extends RecyclerView.Adapter<HomePageFeatur
             this.cataloge = (TextView) itemView.findViewById(R.id.tv_cataloge);
             this.retting = (TextView) itemView.findViewById(R.id.tv_ratting);
             this.date = (TextView) itemView.findViewById(R.id.tv_date);
-            this.iv_image = (ImageView) itemView.findViewById(R.id.iv_image);
+            this.iv_image = (ImageView) itemView.findViewById(R.id.filmIv);
         }
     }
 }

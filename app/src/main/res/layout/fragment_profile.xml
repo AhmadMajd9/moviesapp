@@ -34,18 +34,13 @@
                 android:gravity="center_vertical"
                 android:padding="16dp">
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:src="@drawable/ic_arrow_back_24dp" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+
+
 
                 <TextView
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Profile"
@@ -53,23 +48,9 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
 
-                <RelativeLayout
-                    android:layout_width="50dp"
-                    android:layout_height="50dp">
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_centerInParent="true"
-                        android:padding="6dp"
-                        android:src="@drawable/ic_out" />
 
-                </RelativeLayout>
 
             </LinearLayout>
 
@@ -106,7 +87,7 @@
                                 android:id="@+id/profile_img"
                                 android:layout_width="166dp"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/pp" />
+                                android:src="@drawable/ic_baseline_person_24" />
 
                         </androidx.cardview.widget.CardView>
 
@@ -120,7 +101,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/proximanovaregular"
-                                android:text="Ahmad Majd"
+                                android:text=""
                                 android:textColor="#424242"
                                 android:textSize="21sp"
                                 android:textStyle="bold"
@@ -168,46 +149,6 @@
                         android:orientation="vertical">
 
                         <!--About Me Card-->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/circularbordersolid"
-                            android:orientation="vertical"
-                            android:padding="16dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/about_me"
-                                        android:fontFamily="@font/proximanovaregular"
-                                        android:textSize="17sp"
-                                        android:textStyle="bold" />
-
-                                    <Space
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1" />
-
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/txt_AboutMe"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:text="@string/my_desc" />
-                            </LinearLayout>
-
-                        </LinearLayout>
 
                         <!--Contact Details-->
                         <LinearLayout
@@ -262,7 +203,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="20dp"
-                                        android:text="0598814545"
+                                        android:text=""
                                         android:textSize="15sp"
                                         android:textColor="@color/goodgrey"
                                         android:fontFamily="@font/proximanovaregular" />
@@ -288,7 +229,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="20dp"
                                         android:textColor="@color/goodgrey"
-                                        android:text="ahmad.d.c122@gmail.com"
+                                        android:text=""
                                         android:textSize="15sp"
                                         android:fontFamily="@font/proximanovaregular" />
                                 </LinearLayout>
@@ -412,100 +353,8 @@
 
                                     </LinearLayout>
 
-                                    <LinearLayout
-                                        android:id="@+id/item"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:gravity="center_vertical"
-                                        android:paddingRight="8dp">
-                                        <androidx.constraintlayout.widget.ConstraintLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent">
-
-
-                                            <ImageView
-                                                android:id="@+id/imageView8"
-                                                android:layout_width="40dp"
-                                                android:layout_height="40dp"
-                                                android:background="@drawable/circular_grey_bordersolid"
-                                                android:padding="10dp"
-                                                android:src="@drawable/ic_supervisor_account_black_24dp"
-                                                app:layout_constraintBottom_toBottomOf="parent"
-                                                app:layout_constraintStart_toStartOf="parent"
-                                                app:layout_constraintTop_toTopOf="parent" />
-
-                                            <TextView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_marginStart="20dp"
-                                                android:layout_marginTop="8dp"
-                                                android:layout_marginBottom="12dp"
-                                                android:text="Movies that have watched trailer "
-                                                android:textSize="15sp"
-                                                app:layout_constraintBottom_toBottomOf="parent"
-                                                app:layout_constraintStart_toEndOf="@+id/imageView8"
-                                                app:layout_constraintTop_toTopOf="parent" />
-
-                                            <ImageView
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                                                app:layout_constraintBottom_toBottomOf="parent"
-                                                app:layout_constraintEnd_toEndOf="parent"
-                                                app:layout_constraintTop_toTopOf="parent" />
-
-                                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                                    </LinearLayout>
                                 </LinearLayout>
 
-                                <LinearLayout
-                                    android:id="@+id/ChangePassword"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:gravity="center_vertical"
-                                    android:paddingRight="8dp">
-                                    <androidx.constraintlayout.widget.ConstraintLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent">
-
-
-                                        <ImageView
-                                            android:id="@+id/imageView9"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                                            app:layout_constraintBottom_toBottomOf="parent"
-                                            app:layout_constraintEnd_toEndOf="parent"
-                                            app:layout_constraintTop_toTopOf="parent" />
-
-                                        <ImageView
-                                            android:id="@+id/imageView10"
-                                            android:layout_width="40dp"
-                                            android:layout_height="40dp"
-                                            android:background="@drawable/circular_grey_bordersolid"
-                                            android:padding="10dp"
-                                            android:src="@drawable/ic_lock"
-                                            app:layout_constraintBottom_toBottomOf="parent"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toTopOf="parent" />
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginStart="20dp"
-                                            android:text="Change Password"
-                                            android:textSize="15sp"
-                                            app:layout_constraintBottom_toBottomOf="parent"
-                                            app:layout_constraintEnd_toStartOf="@+id/imageView9"
-                                            app:layout_constraintHorizontal_bias="0.0"
-                                            app:layout_constraintStart_toEndOf="@+id/imageView10"
-                                            app:layout_constraintTop_toTopOf="parent" />
-                                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                                </LinearLayout>
 
                                 <LinearLayout
                                     android:id="@+id/LogOut"

@@ -13,17 +13,17 @@ import com.cinema.cinema.R;
 
 
 public class CatalogiesFragment extends Fragment {
-    TextView Cate ;
-View root ;
+    TextView categoryTv ;
+    View root ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_catalogies, container, false);
-        Cate = root.findViewById(R.id.textView7) ;
+        categoryTv = root.findViewById(R.id.categoryTv) ;
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            Cate.setText(bundle.getString("cate"));
+            categoryTv.setText(bundle.getString("catName"));
         }
 
         return root;
