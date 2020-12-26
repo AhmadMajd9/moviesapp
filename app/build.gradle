@@ -54,5 +54,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.mockito:mockito-core:3.6.0'
     androidTestImplementation "org.mockito:mockito-core:3.6.0"
+    implementation 'com.github.javafaker:javafaker:1.0.2'
 
 }
