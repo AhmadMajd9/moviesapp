@@ -4,30 +4,25 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.HorizontalScrollView;
 
-import com.cinema.cinema.Adapter.DetiailsPage_Similar_MoviesAdapter;
-import com.cinema.cinema.Adapter.HomePageCategoriesAdapter;
-import com.cinema.cinema.Adapter.HomePageFeaturedAdapter;
-import com.cinema.cinema.Adapter.ImageSliderAdapter;
-import com.cinema.cinema.Fragment.CatalogiesFragment;
 import com.cinema.cinema.Fragment.HomePageFragment;
 import com.cinema.cinema.Fragment.ProfileFragment;
 import com.cinema.cinema.Fragment.SearchFragment;
-import com.cinema.cinema.Model.DetiailsPage_Similar_Movies;
-import com.cinema.cinema.Model.HomePage_Featured;
-import com.cinema.cinema.Model.HomePage_categories;
+
+import com.cinema.cinema.Model.Movie;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements MainActivityViewInterface {
     BottomNavigationView bottomNavigationView;
+    public static List<Movie> moviesList;
+    public  List<Movie> featuredMovies;
+    boolean doubleBackToExitPressedOnce = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,5 +88,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onGetMoviesSuccess(List<Movie> moviesList) {
+        
+    }
 
+    @Override
+    public void onGetMoviesFailed(String message) {
+
+    }
 }
