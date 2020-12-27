@@ -1,4 +1,4 @@
-package com.cinema.cinema.RegisterActivity;
+package com.cinema.cinema.registeractivity;
 
 import org.junit.Before;
 import org.junit.Test;

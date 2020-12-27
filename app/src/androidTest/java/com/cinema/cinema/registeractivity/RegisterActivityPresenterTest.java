@@ -1,4 +1,4 @@
-package com.cinema.cinema.RegisterActivity;
+package com.cinema.cinema.registeractivity;
 
 import com.github.javafaker.Faker;
 
