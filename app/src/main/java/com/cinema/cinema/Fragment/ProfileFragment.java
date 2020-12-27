@@ -15,7 +15,9 @@ import com.cinema.cinema.R;
 
 public class ProfileFragment extends Fragment {
 
-    View root ;
+public class ProfileFragment extends Fragment implements ProfileFragmentViewInterface {
+
+    View root;
     LinearLayout FavoritesLiner;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +43,26 @@ public class ProfileFragment extends Fragment {
         FragmentTransaction ftConfig = getActivity().getSupportFragmentManager().beginTransaction();
         ftConfig.replace(R.id.FrameLayout, fragment);
         ftConfig.commit();
+    }
+
+    @Override
+    public void onUploadSuccess(String url) {
+
+    }
+
+    @Override
+    public void onUploadFailed(String message) {
+
+    }
+
+    @Override
+    public void onGetProfileSuccess(User user) {
+        
+    }
+
+    @Override
+    public void onProfileDataFailed(String message) {
+
     }
 
 }
