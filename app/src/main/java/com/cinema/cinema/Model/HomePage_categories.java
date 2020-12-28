@@ -1,13 +1,14 @@
 package com.cinema.cinema.Model;
 
 public class HomePage_categories {
+    int img ;
+    String cagTitle;
+
     public HomePage_categories(int img, String cagTitle) {
         this.img = img;
         this.cagTitle = cagTitle;
     }
 
-    int img ;
-    String cagTitle;
 
     public int getImg() {
         return img;
