@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +15,19 @@ import android.widget.SearchView;
 
 import com.cinema.cinema.Adapter.HomePageFeaturedAdapter;
 import com.cinema.cinema.Model.HomePage_Featured;
+import com.cinema.cinema.Model.Movie;
 import com.cinema.cinema.R;
 
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.List;
 
 public class SearchFragment extends Fragment {
 
   View root;
-ArrayList<HomePage_Featured> SrearchArray;
-ArrayList<HomePage_Featured> myListDataFeature;
+  List<Movie> moviesList;
+    ArrayList<HomePage_Featured> SrearchArray;
     SearchView searchView;
+    Movie movie;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,27 +35,21 @@ ArrayList<HomePage_Featured> myListDataFeature;
         root =   inflater.inflate(R.layout.fragment_search, container, false);
         searchView = root.findViewById(R.id.SearchView);
 
-        myListDataFeature = new ArrayList();
+        Bundle bundle = this.getArguments();
+        if(bundle != null){
+            moviesList = (List<Movie>) bundle.getSerializable("moviesList");
 
-        myListDataFeature.add(
-                new HomePage_Featured("VENOM", "Action" , "9.9" , "2020" , R.drawable.images3)
-                );
-        myListDataFeature.add(
-                new HomePage_Featured("SpiderMan" , "Action" , "9.9" , "2020" ,R.drawable.images2)
-                );
-        myListDataFeature.add(
-                new HomePage_Featured("The Great Battle" , "Action" , "9.9" , "2020",R.drawable.download)
-                );
-        myListDataFeature.add(
-                new HomePage_Featured("VENOM", "Action" , "9.9" , "2020" , R.drawable.images3)
-                );
-       myListDataFeature.add(
-               new HomePage_Featured("The Great Battle" , "Action" , "9.9" , "2020" , R.drawable.images)
-                );
-        myListDataFeature.add(
-                new HomePage_Featured("The Great Battle" , "Action" , "9.9" , "2020" , R.drawable.images1)
-                );
+            // recyclerViewFeature
+            RecyclerView recyclerView =  root.findViewById(R.id.result_list);
+            HomePageFeaturedAdapter adapter = new HomePageFeaturedAdapter(getContext(), moviesList, position -> {
+                movie = moviesList.get(position);
+                HomePageFragment.goToDetailsFragment(getActivity(), movie);
 
+            });
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(),  2));
+            recyclerView.setAdapter(adapter);
+        }
 
 
 
@@ -68,13 +65,6 @@ ArrayList<HomePage_Featured> myListDataFeature;
             }});
 
 
-
-        // recyclerViewFeature
-        RecyclerView recyclerView =  root.findViewById(R.id.result_list);
-        HomePageFeaturedAdapter adapter = new HomePageFeaturedAdapter(myListDataFeature);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager( new GridLayoutManager(getContext(), 2));
-        recyclerView.setAdapter(adapter);
 
         return root ;
 
