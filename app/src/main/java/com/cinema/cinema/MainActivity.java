@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityViewI
     bottomNavigationView = findViewById(R.id.BottomNavigationView);
     presenter = new MainActivityPresenter(this);
 
+    presenter.getMoviesData();
+
     bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
       switch (item.getItemId()) {
         case R.id.Home:
