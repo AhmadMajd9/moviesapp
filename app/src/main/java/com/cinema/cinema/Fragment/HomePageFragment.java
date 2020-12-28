@@ -1,12 +1,16 @@
 package com.cinema.cinema.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +18,33 @@ import android.view.ViewGroup;
 import com.cinema.cinema.Adapter.HomePageCategoriesAdapter;
 import com.cinema.cinema.Adapter.HomePageFeaturedAdapter;
 import com.cinema.cinema.Adapter.ImageSliderAdapter;
+import com.cinema.cinema.MainActivity;
+import com.cinema.cinema.Model.Data;
 import com.cinema.cinema.Model.HomePage_Featured;
 import com.cinema.cinema.Model.HomePage_categories;
+import com.cinema.cinema.Model.MainObject;
+import com.cinema.cinema.Model.Movie;
 import com.cinema.cinema.R;
+import com.cinema.cinema.Utils.ImdbApiInterface;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class HomePageFragment extends Fragment {
-        View root;
-    ArrayList<HomePage_Featured> myListDataFeature;
+    View root;
     ArrayList<HomePage_categories> myListDataCategories;
-
+    List<Movie> featuredList, moviesList;
+    List<String> sliderImageUrls;
+    Movie movie;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,59 +52,96 @@ public class HomePageFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_home_page, container, false);
 
 
-        myListDataFeature = new ArrayList();
-        myListDataCategories = new ArrayList();
 
-        ViewPager mViewPager = (ViewPager) root.findViewById(R.id.imageView3);
-        ImageSliderAdapter adapterView = new ImageSliderAdapter(getContext());
-        mViewPager.setAdapter(adapterView);
 
-        myListDataCategories.add(
-                new HomePage_categories(R.drawable.img1 , "Comedy")
-        )        ;
-        myListDataCategories.add(
-                new HomePage_categories(R.drawable.img2 , "Action")        )        ;
-        myListDataCategories.add(
-                new HomePage_categories(R.drawable.img2 , "Action")
-        )        ;
+        Bundle bundle = this.getArguments();
+        if(bundle != null){
+            featuredList = (List<Movie>) bundle.getSerializable("featuredList");
+            moviesList = (List<Movie>) bundle.getSerializable("moviesList");
 
 
 
+            // recyclerViewFeature
+            RecyclerView recyclerView =  root.findViewById(R.id.RecyclerView);
+            HomePageFeaturedAdapter adapter = new HomePageFeaturedAdapter(getContext(), featuredList, position -> {
+                movie = featuredList.get(position);
+                goToDetailsFragment(getActivity(), movie);
+            });
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+            recyclerView.setAdapter(adapter);
 
-        myListDataFeature.add(
-                new HomePage_Featured("VENOM", "Action" , "9.9" , "2020" , R.drawable.images3)
-        );
-        myListDataFeature.add(
-                new HomePage_Featured("SpiderMan" , "Action" , "9.9" , "2020" ,R.drawable.images2)
-        );
-        myListDataFeature.add(
-                new HomePage_Featured("The Great Battle" , "Action" , "9.9" , "2020",R.drawable.download)
-        );
-        myListDataFeature.add(
-                new HomePage_Featured("VENOM", "Action" , "9.9" , "2020" , R.drawable.images3)
-        );
-        myListDataFeature.add(
-                new HomePage_Featured("The Great Battle" , "Action" , "9.9" , "2020" , R.drawable.images)
-        );
-        myListDataFeature.add(
-                new HomePage_Featured("The Great Battle" , "Action" , "9.9" , "2020" , R.drawable.images1)
-        );
+            myListDataCategories = new ArrayList<>();
+            sliderImageUrls = new ArrayList<>();
+
+            for(int i=0; i<featuredList.size(); i++){
+                sliderImageUrls.add(featuredList.get(i).getUrlPoster());
+                Collections.reverse(sliderImageUrls);
+            }
+
+            ViewPager mViewPager = (ViewPager) root.findViewById(R.id.imageView3);
+            ImageSliderAdapter adapterView = new ImageSliderAdapter(getContext(), sliderImageUrls);
+            mViewPager.setAdapter(adapterView);
+
+            myListDataCategories.add(
+                    new HomePage_categories(R.drawable.img2 , "Drama"));
+            myListDataCategories.add(
+                    new HomePage_categories(R.drawable.img1 , "Crime")
+            );
+            myListDataCategories.add(
+                    new HomePage_categories(R.drawable.img2 , "Adventure")
+            );
 
 
-        // recyclerViewFeature
-        RecyclerView recyclerView =  root.findViewById(R.id.RecyclerView);
-        HomePageFeaturedAdapter adapter = new HomePageFeaturedAdapter(myListDataFeature);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(adapter);
+
+
+        }
+
+
+
+
+
 
         // recyclerViewCategories
      RecyclerView recyclerViewCategories = (RecyclerView) root.findViewById(R.id.CategoriesRecyclerView);
-        HomePageCategoriesAdapter adapterCategories = new HomePageCategoriesAdapter(myListDataCategories);
+        HomePageCategoriesAdapter adapterCategories = new HomePageCategoriesAdapter(myListDataCategories, position -> {
+
+            goToCategoryFragment(myListDataCategories.get(position).getCagTitle());
+
+        });
         recyclerViewCategories.setHasFixedSize(true);
         recyclerViewCategories.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewCategories.setAdapter(adapterCategories);
 
         return  root;
     }
+    public static void goToDetailsFragment(FragmentActivity activity, Movie m) {
+
+        MovieDetailsFragment detailsFragment = new MovieDetailsFragment();
+        Fragment fragment =  detailsFragment;
+        FragmentTransaction ftConfig = activity.getSupportFragmentManager().beginTransaction();
+        ftConfig.replace(R.id.FrameLayout, fragment);
+        // send movie
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("clickedMovie", (Serializable) m);
+        fragment.setArguments(bundle);
+
+        ftConfig.commit();
+    }
+
+    public void goToCategoryFragment(String catName) {
+
+        CatalogiesFragment catFragment = new CatalogiesFragment();
+        Fragment fragment =  catFragment;
+        FragmentTransaction ftConfig = getFragmentManager().beginTransaction();
+        ftConfig.replace(R.id.FrameLayout, fragment);
+        // send movie
+        Bundle bundle = new Bundle();
+        bundle.putString("catName", catName);
+        fragment.setArguments(bundle);
+
+        ftConfig.commit();
+    }
+
+
 }
