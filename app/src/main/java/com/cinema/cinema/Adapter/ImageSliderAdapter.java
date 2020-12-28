@@ -8,13 +8,19 @@ import android.widget.ImageView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.cinema.cinema.R;
+
+import java.util.List;
 
 public class ImageSliderAdapter extends PagerAdapter {
     Context mContext;
+    List<String> sliderImageUrls;
 
-    public ImageSliderAdapter(Context context) {
+
+    public ImageSliderAdapter(Context context, List<String> sliderImageUrls) {
         this.mContext = context;
+        this.sliderImageUrls = sliderImageUrls;
     }
 
     @Override
@@ -22,15 +28,13 @@ public class ImageSliderAdapter extends PagerAdapter {
         return view == ((ImageView) object);
     }
 
-    private int[] sliderImageId = new int[]{
-            R.drawable.img2,   R.drawable.img1, R.drawable.img3
-    };
+
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = new ImageView(mContext);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageResource(sliderImageId[position]);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        Glide.with(mContext).load(sliderImageUrls.get(position)).into(imageView);
         ((ViewPager) container).addView(imageView, 0);
         return imageView;
     }
@@ -42,6 +46,6 @@ public class ImageSliderAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return sliderImageId.length;
+        return sliderImageUrls.size();
     }
 }
