@@ -4,48 +4,44 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
 import com.bumptech.glide.Glide;
-import com.cinema.cinema.R;
-
 import java.util.List;
 
 public class ImageSliderAdapter extends PagerAdapter {
-    Context mContext;
-    List<String> sliderImageUrls;
+  Context mContext;
+  List<String> sliderImageUrls;
 
 
-    public ImageSliderAdapter(Context context, List<String> sliderImageUrls) {
-        this.mContext = context;
-        this.sliderImageUrls = sliderImageUrls;
-    }
+  public ImageSliderAdapter(Context context, List<String> sliderImageUrls) {
+    this.mContext = context;
+    this.sliderImageUrls = sliderImageUrls;
+  }
 
-    @Override
+  @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((ImageView) object);
-    }
+    return view == ((ImageView) object);
+  }
 
 
 
-    @Override
+  @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        ImageView imageView = new ImageView(mContext);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        Glide.with(mContext).load(sliderImageUrls.get(position)).into(imageView);
-        ((ViewPager) container).addView(imageView, 0);
-        return imageView;
-    }
+    ImageView imageView = new ImageView(mContext);
+    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+    Glide.with(mContext).load(sliderImageUrls.get(position)).into(imageView);
+    ((ViewPager) container).addView(imageView, 0);
+    return imageView;
+  }
 
-    @Override
+  @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((ImageView) object);
-    }
+    ((ViewPager) container).removeView((ImageView) object);
+  }
 
-    @Override
+  @Override
     public int getCount() {
-        return sliderImageUrls.size();
-    }
+    return sliderImageUrls.size();
+  }
 }
