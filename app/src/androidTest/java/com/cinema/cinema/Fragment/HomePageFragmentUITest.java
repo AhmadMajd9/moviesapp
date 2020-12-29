@@ -55,7 +55,8 @@ public class HomePageFragmentUITest implements MainActivityViewInterface {
     }
 
     @Override
-    public void onGetMoviesSuccess(List<Movie> moviesList) {
+    public void onGetMoviesSuccess(List<Movie> moviesList)
+    {
         this.moviesList = moviesList;
     }
 
