@@ -26,7 +26,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(JUnit4ClassRunner.class)
-public class ProfileFragmentTest {
+public class ProfileFragmentUITest {
     static CountDownLatch latch = new CountDownLatch(1);
 
     @Rule
